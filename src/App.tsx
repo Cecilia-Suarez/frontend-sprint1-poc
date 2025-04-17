@@ -3,7 +3,7 @@ import Login from "./page/Login";
 import Register from "./page/Register";
 import Home from "./page/Home";
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <Router>
       <Routes>

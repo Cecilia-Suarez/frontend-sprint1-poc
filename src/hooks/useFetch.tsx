@@ -1,7 +1,7 @@
-import { useQuery, UseQueryResult } from "@tanstack/react-query"
-import api from "../api/axios"
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
+import api from "../api/axios";
 
-const useFetch = <T>(key: string, endpoint: string): UseQueryResult <T> => {
+const useFetch = <T,>(key: string, endpoint: string): UseQueryResult<T> => {
   const fetchData = async (): Promise<T> => {
     try {
       const { data } = await api.get<T>(endpoint);
