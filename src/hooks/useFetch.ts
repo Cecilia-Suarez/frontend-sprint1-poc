@@ -1,7 +1,7 @@
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
+import { useQuery, type UseQueryResult } from "@tanstack/react-query";
 import api from "../api/axios";
 
-const useFetch = <T,>(key: string, endpoint: string): UseQueryResult<T> => {
+const useFetch = <T>(key: string, endpoint: string): UseQueryResult<T> => {
   const fetchData = async (): Promise<T> => {
     try {
       const { data } = await api.get<T>(endpoint);
@@ -19,7 +19,8 @@ const useFetch = <T,>(key: string, endpoint: string): UseQueryResult<T> => {
     }
   };
 
-  return useQuery<T, Error, T>({
+
+  return useQuery({
     queryKey: [key],
     queryFn: fetchData,
     staleTime: 1000 * 60 * 5,

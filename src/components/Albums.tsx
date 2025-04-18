@@ -1,4 +1,3 @@
-import React from "react";
 import useFetch from "../hooks/useFetch";
 
 interface Album {
@@ -7,12 +6,33 @@ interface Album {
   title: string;
 }
 
-const Albums: React.FC = () => {
-  useFetch<Album[]>("albums", "/albums");
+const Albums = () => {
+  const { data: albums, isLoading } = useFetch<Album[]>("albums", "/albums");
+
+  const groupedAlbums = albums?.reduce<Record<number, Album[]>>((acc, album) => {
+    if (!(album.userId in acc)) {
+      acc[album.userId] = [];
+    }
+    acc[album.userId].push(album);
+    return acc;
+  }, {});
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       <h2>Albums</h2>
+      {groupedAlbums &&
+        Object.entries(groupedAlbums).map(([userId, items]) => (
+          <div key={userId}>
+            <h2>Usuario {userId}</h2>
+            <ul>
+              {items.map((item) => (
+                <li key={item.id}>{item.title}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
     </div>
   );
 };
