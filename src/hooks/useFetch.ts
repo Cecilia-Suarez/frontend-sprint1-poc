@@ -19,6 +19,7 @@ const useFetch = <T>(key: string, endpoint: string): UseQueryResult<T> => {
     }
   };
 
+
   return useQuery({
     queryKey: [key],
     queryFn: fetchData,
