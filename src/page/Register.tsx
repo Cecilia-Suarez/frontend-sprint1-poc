@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import Notification from "../components/Notifications";
 
 interface RegisterInputs {
   name: string;
@@ -12,18 +14,41 @@ const Register = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<RegisterInputs>();
+  const [notification, setNotification] = useState({
+    text: "",
+    type: "error" as "success" | "error",
+    show: false,
+  });
 
   const onSubmit = (data: RegisterInputs): void => {
-    console.log("Datos del músico registrado:", data);
+    if (data.email === "registrado@example.com") {
+      setNotification({
+        text: "Email ya registrado!!.",
+        type: "error",
+        show: true,
+      });
+    } else if (!data.name || !data.password || !data.email) {
+      setNotification({
+        text: "Revise los campos!!.",
+        type: "error",
+        show: true,
+      });
+    } else {
+      setNotification({
+        text: "Registrado con Ëxito!!.",
+        type: "success",
+        show: true,
+      });
+    }
   };
 
   return (
     <div className="flex bg-gray-900">
       <form
         onSubmit={(event) => {
-          handleSubmit(onSubmit)(event).catch((error: unknown) => {
+          void handleSubmit(onSubmit)(event).catch((error: unknown) => {
             if (error instanceof Error) {
               console.error("Error durante el submit:", error.message);
             } else {
@@ -34,7 +59,7 @@ const Register = () => {
         className="w-full max-w-lg rounded-lg bg-gray-800 p-8 text-white shadow-md"
       >
         <h2 className="mb-6 text-center text-3xl font-bold text-indigo-400">
-          Registro para Músicos Emergentes
+          Registrate y que el Mundo te Escuche!!
         </h2>
 
         <div className="mb-4">
@@ -76,6 +101,7 @@ const Register = () => {
           {errors.password && <p className="mt-1 text-red-500">{errors.password.message}</p>}
         </div>
 
+        {/* Campo opcional: Género Musical */}
         <div className="mb-4">
           <label htmlFor="genero" className="mb-2 block text-gray-300">
             Género Musical (Opcional)
@@ -88,6 +114,7 @@ const Register = () => {
           />
         </div>
 
+        {/* Campo opcional: Años de Experiencia */}
         <div className="mb-4">
           <label htmlFor="experience" className="mb-2 block text-gray-300">
             Años de Experiencia (Opcional)
@@ -102,11 +129,21 @@ const Register = () => {
 
         <button
           type="submit"
+          disabled={isSubmitting}
           className="w-full rounded bg-indigo-500 px-4 py-2 text-white hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-700 focus:outline-none"
         >
-          Registrarse
+          {isSubmitting ? "Cargando..." : "Registrarse"}
         </button>
       </form>
+
+      <Notification
+        text={notification.text}
+        type={notification.type}
+        show={notification.show}
+        onClose={() => {
+          setNotification({ ...notification, show: false });
+        }}
+      />
     </div>
   );
 };
