@@ -5,10 +5,12 @@ import Home from "./page/Home";
 import NotFound from "./page/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./page/Dashboard";
+import Header from "./components/Header";
 
 const App = () => {
   return (
     <Router>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
