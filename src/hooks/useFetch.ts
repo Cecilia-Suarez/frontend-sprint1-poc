@@ -1,5 +1,5 @@
 import { useQuery, type UseQueryResult } from "@tanstack/react-query";
-import api from "../api/axios";
+import api from "../api/apiAlbums";
 
 const useFetch = <T>(key: string, endpoint: string): UseQueryResult<T> => {
   const fetchData = async (): Promise<T> => {
@@ -18,7 +18,6 @@ const useFetch = <T>(key: string, endpoint: string): UseQueryResult<T> => {
       throw new Error("Error fetching the data");
     }
   };
-
 
   return useQuery({
     queryKey: [key],
