@@ -11,7 +11,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<LoginInputs>();
   const [notification, setNotification] = useState({
     text: "",
@@ -81,9 +81,10 @@ const Login = () => {
 
         <button
           type="submit"
+          disabled={isSubmitting}
           className="w-full rounded bg-indigo-500 px-4 py-2 text-white hover:bg-indigo-600"
         >
-          Iniciar Sesión
+          {isSubmitting ? "Iniciando sesion..." : "Iniciar Sesión"}
         </button>
       </form>
 
