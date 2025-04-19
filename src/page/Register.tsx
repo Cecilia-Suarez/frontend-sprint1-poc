@@ -14,7 +14,7 @@ const Register = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<RegisterInputs>();
   const [notification, setNotification] = useState({
     text: "",
@@ -129,9 +129,10 @@ const Register = () => {
 
         <button
           type="submit"
+          disabled={isSubmitting}
           className="w-full rounded bg-indigo-500 px-4 py-2 text-white hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-700 focus:outline-none"
         >
-          Registrarse
+          {isSubmitting ? "Cargando..." : "Registrarse"}
         </button>
       </form>
 
