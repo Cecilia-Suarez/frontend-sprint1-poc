@@ -1,21 +1,23 @@
-import { createContext, ReactNode, useState, useEffect, useMemo, use } from "react";
+import { createContext, useState, useLayoutEffect, useMemo, use, PropsWithChildren } from "react";
 import { jwtDecode } from "jwt-decode";
 
 export interface DecodedToken {
   user: string;
 }
 
-interface AuthContextType {
-  user: DecodedToken | null;
+interface AuthContext {
+  user?: DecodedToken | null;
   setUser: (user: DecodedToken | null) => void;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContext | undefined>(undefined);
 
-const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<DecodedToken | null>(null);
+type AuthProviderProps = PropsWithChildren;
 
-  useEffect(() => {
+export const AuthProvider = ({ children }: AuthProviderProps) => {
+  const [user, setUser] = useState<DecodedToken | null>();
+
+  useLayoutEffect(() => {
     const token = localStorage.getItem("token");
 
     if (token) {
