@@ -4,17 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, setUser } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
-  };
-
-  const handleLogOut = () => {
-    localStorage.removeItem("token");
-    setUser(null);
-    void navigate("/login");
   };
 
   if (!user) return null;
@@ -41,11 +35,7 @@ const UserMenu = () => {
           >
             Dashboard
           </button>
-          <button
-            onClick={handleLogOut}
-            type="button"
-            className="block w-full px-4 py-2 text-center text-sm"
-          >
+          <button type="button" className="block w-full px-4 py-2 text-center text-sm">
             Cerrar sesión
           </button>
         </div>
