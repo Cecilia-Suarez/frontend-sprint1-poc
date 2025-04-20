@@ -1,10 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
-import api from "../api/axios";
+import api from "../api/apiAuth";
 import { AxiosError } from "axios";
 
 interface RegisterData {
-  name: string;
-  lastname: string;
+  username: string;
   email: string;
   password: string;
 }
@@ -13,7 +12,7 @@ const useRegister = () => {
   return useMutation<unknown, Error, RegisterData>({
     mutationFn: async (data: RegisterData) => {
       try {
-        const response = await api.post("/auth/register", data);
+        const response = await api.post("/users", data);
         console.log("Response:", response.data);
       } catch (error: unknown) {
         if (error instanceof AxiosError) {

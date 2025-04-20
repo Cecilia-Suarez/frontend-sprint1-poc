@@ -1,9 +1,12 @@
-import api from "../api/axios";
+import api from "../api/apiAuth";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { useAuth } from "../context/AuthContext";
+import { jwtDecode } from "jwt-decode";
+import { DecodedToken } from "../context/AuthContext";
 
 interface LoginPayload {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -12,12 +15,19 @@ interface LoginResponse {
 }
 
 const useLogin = () => {
+  const { setUser } = useAuth();
+
   return useMutation({
     mutationFn: async (payload: LoginPayload): Promise<LoginResponse> => {
       try {
         const { data } = await api.post<LoginResponse>("/auth/login", payload);
+
         localStorage.setItem("token", data.token);
-        console.log(data);
+
+        const decoded = jwtDecode<DecodedToken>(data.token);
+        setUser(decoded);
+
+        console.log("Usuario logueado");
         return data;
       } catch (error: unknown) {
         if (error instanceof AxiosError) {
