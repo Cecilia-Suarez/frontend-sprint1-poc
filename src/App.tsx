@@ -6,6 +6,7 @@ import NotFound from "./page/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./page/Dashboard";
 import Header from "./components/Header";
+import MusicList from "./page/MusicList";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route path="/MusicList" element={<MusicList />} />
       </Routes>
     </Router>
   );
