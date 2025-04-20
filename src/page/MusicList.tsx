@@ -25,8 +25,13 @@ const MusicList = () => {
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
+  const endIndex = Math.min(startIndex + itemsPerPage, filteredData.length);
   const paginatedData = filteredData.slice(startIndex, endIndex);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1);
+  };
 
   return (
     <div className="p-4">
@@ -35,9 +40,7 @@ const MusicList = () => {
         type="text"
         placeholder="Buscar músicos..."
         value={searchTerm}
-        onChange={(e) => {
-          setSearchTerm(e.target.value);
-        }}
+        onChange={handleSearchChange}
         className="mb-4 w-80 rounded border border-gray-300 p-2"
       />
       <div className="min-h-[480px]">
