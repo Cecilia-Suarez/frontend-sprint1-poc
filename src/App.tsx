@@ -7,6 +7,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./page/Dashboard";
 import Header from "./components/Header";
 import MusicList from "./page/MusicList";
+import ProductsTable from "./components/ProductsTable";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           }
         />
         <Route path="/MusicList" element={<MusicList />} />
+        <Route path="/products" element={<ProductsTable />} />
       </Routes>
     </Router>
   );
