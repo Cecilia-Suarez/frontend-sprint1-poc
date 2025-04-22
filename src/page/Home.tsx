@@ -1,11 +1,11 @@
-import Albums from "../components/Albums";
+import Books from "../components/Books";
 import LoginTest from "../test/loginTest";
 import RegisterTest from "../test/registerTest";
 
 const Home = () => {
   return (
     <div>
-      <Albums />
+      <Books />
       <RegisterTest />
       <LoginTest />
     </div>
