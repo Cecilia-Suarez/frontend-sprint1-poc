@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import api from "../../api/apiAuthAndProducts";
-
+import { AxiosResponse } from "axios";
 interface AddProductProps {
   onSave: (newProduct: {
     id: number;
@@ -14,7 +14,7 @@ interface AddProductProps {
 
 const ModalAddProduct: React.FC<AddProductProps> = ({ onSave, onClose }) => {
   const [title, settitle] = useState<string>("");
-  const [price, setprice] = useState<number>("");
+  const [price, setprice] = useState<number>(0);
   const [description, setDescription] = useState<string>("");
   const [category, setCategory] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -23,7 +23,7 @@ const ModalAddProduct: React.FC<AddProductProps> = ({ onSave, onClose }) => {
     e.preventDefault();
     try {
       const newProduct = { title, price, description, category };
-      const response = await api.post(`/products`, newProduct);
+      const response: AxiosResponse<Product> = await api.post(`/products`, newProduct);
       if (response.status === 200) {
         onSave(response.data);
         onClose();
@@ -49,7 +49,7 @@ const ModalAddProduct: React.FC<AddProductProps> = ({ onSave, onClose }) => {
               type="text"
               placeholder="Ingresar Nombre del Título"
               value={title}
-              onChange={(e) => settitle(e.target.value)}
+              onChange={(e) => {settitle(e.target.value)}}
               className="w-full rounded-md border border-gray-300 px-4 py-2"
               required
             />
@@ -60,7 +60,7 @@ const ModalAddProduct: React.FC<AddProductProps> = ({ onSave, onClose }) => {
               type="number"
               placeholder="Ingresa el valor del producto"
               value={price.toString()}
-              onChange={(e) => setprice(Number(e.target.value))}
+              onChange={(e) => {setprice(Number(e.target.value))}}
               className="w-full rounded-md border border-gray-300 px-4 py-2"
               required
             />
@@ -70,7 +70,7 @@ const ModalAddProduct: React.FC<AddProductProps> = ({ onSave, onClose }) => {
             <textarea
               value={description}
               placeholder="Ingresar descripción del producto"
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) => {setDescription(e.target.value)}}
               className="w-full rounded-md border border-gray-300 px-4 py-2"
               required
             />
@@ -81,7 +81,7 @@ const ModalAddProduct: React.FC<AddProductProps> = ({ onSave, onClose }) => {
               type="text"
               placeholder="Ingresar la categoría del producto"
               value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => {setCategory(e.target.value)}}
               className="w-full rounded-md border border-gray-300 px-4 py-2"
               required
             />
