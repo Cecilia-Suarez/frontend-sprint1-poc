@@ -34,6 +34,7 @@ const Button: React.FC<ButtonsProductProps> = ({
 
   return (
     <button
+      type="button"
       onClick={handleClick}
       className={`rounded px-4 py-1 font-semibold text-white shadow ${
         actionType === "edit"

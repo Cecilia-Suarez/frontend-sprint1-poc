@@ -10,7 +10,7 @@ interface DeleteProductProps {
 const ModalDeleteProduct: React.FC<DeleteProductProps> = ({ product, onDelete, onClose }) => {
   const handleConfirmDelete = async () => {
     try {
-      await api.delete(`/products/${product.id}`);
+      await api.delete(`/products/${product.id.toString()}`);
       onDelete(product.id);
       onClose();
     } catch (error) {

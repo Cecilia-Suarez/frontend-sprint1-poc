@@ -30,7 +30,7 @@ const ModalEditProduct: React.FC<EditProductProps> = ({ product, onSave, onClose
     e.preventDefault();
     try {
       const updatedProduct = { id: product.id, title, price: Number(price), description, category };
-      await api.put(`/products/${product.id}`, updatedProduct);
+      await api.put(`/products/${product.id.toString()}`, updatedProduct);
       onSave(updatedProduct);
       onClose();
     } catch (error) {
@@ -48,7 +48,9 @@ const ModalEditProduct: React.FC<EditProductProps> = ({ product, onSave, onClose
             <input
               type="text"
               value={title}
-              onChange={(e) => settitle(e.target.value)}
+              onChange={(e) => {
+                settitle(e.target.value);
+              }}
               className="w-full rounded-md border border-gray-300 px-4 py-2"
               required
             />
@@ -58,7 +60,9 @@ const ModalEditProduct: React.FC<EditProductProps> = ({ product, onSave, onClose
             <input
               type="number"
               value={price.toString()}
-              onChange={(e) => setprice(e.target.value)}
+              onChange={(e) => {
+                setprice(parseFloat(e.target.value));
+              }}
               className="w-full rounded-md border border-gray-300 px-4 py-2"
               required
             />
@@ -67,7 +71,9 @@ const ModalEditProduct: React.FC<EditProductProps> = ({ product, onSave, onClose
             <label className="block text-sm font-medium">Descripción</label>
             <textarea
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
               className="w-full rounded-md border border-gray-300 px-4 py-2"
               required
             />
@@ -77,7 +83,9 @@ const ModalEditProduct: React.FC<EditProductProps> = ({ product, onSave, onClose
             <input
               type="text"
               value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => {
+                setCategory(e.target.value);
+              }}
               className="w-full rounded-md border border-gray-300 px-4 py-2"
               required
             />
