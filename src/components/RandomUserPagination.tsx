@@ -11,7 +11,7 @@ export const RandomUsersPagination = () => {
   };
 
   const handlePrev = () => {
-    setPage((prev) => Math.max(prev - 1, 1));
+    setPage((prev) => prev - 1);
   };
 
   console.log(data);
