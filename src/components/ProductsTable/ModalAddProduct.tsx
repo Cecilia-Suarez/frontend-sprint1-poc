@@ -14,7 +14,7 @@ interface AddProductProps {
 
 const ModalAddProduct: React.FC<AddProductProps> = ({ onSave, onClose }) => {
   const [title, settitle] = useState<string>("");
-  const [price, setprice] = useState<number>(0);
+  const [price, setprice] = useState<number>("");
   const [description, setDescription] = useState<string>("");
   const [category, setCategory] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -47,6 +47,7 @@ const ModalAddProduct: React.FC<AddProductProps> = ({ onSave, onClose }) => {
             <label className="block text-sm font-medium">Título</label>
             <input
               type="text"
+              placeholder="Ingresar Nombre del Título"
               value={title}
               onChange={(e) => settitle(e.target.value)}
               className="w-full rounded-md border border-gray-300 px-4 py-2"
@@ -57,6 +58,7 @@ const ModalAddProduct: React.FC<AddProductProps> = ({ onSave, onClose }) => {
             <label className="block text-sm font-medium">Precio</label>
             <input
               type="number"
+              placeholder="Ingresa el valor del producto"
               value={price.toString()}
               onChange={(e) => setprice(Number(e.target.value))}
               className="w-full rounded-md border border-gray-300 px-4 py-2"
@@ -67,6 +69,7 @@ const ModalAddProduct: React.FC<AddProductProps> = ({ onSave, onClose }) => {
             <label className="block text-sm font-medium">Descripción</label>
             <textarea
               value={description}
+              placeholder="Ingresar descripción del producto"
               onChange={(e) => setDescription(e.target.value)}
               className="w-full rounded-md border border-gray-300 px-4 py-2"
               required
@@ -76,6 +79,7 @@ const ModalAddProduct: React.FC<AddProductProps> = ({ onSave, onClose }) => {
             <label className="block text-sm font-medium">Categoría</label>
             <input
               type="text"
+              placeholder="Ingresar la categoría del producto"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               className="w-full rounded-md border border-gray-300 px-4 py-2"

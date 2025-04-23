@@ -5,7 +5,6 @@ import ModalDeleteProduct from "./ProductsTable/ModalDeleteProduct";
 import ModalEditProduct from "./ProductsTable/ModalEditProduct";
 import Button from "./ProductsTable/Button";
 import ModalAddProduct from "./ProductsTable/ModalAddProduct";
-
 interface Product {
   id: number;
   title: string;
