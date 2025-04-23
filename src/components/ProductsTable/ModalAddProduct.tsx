@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import api from "../../api/apiAuthAndProducts";
 import { AxiosResponse } from "axios";
+
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+}
 interface AddProductProps {
   onSave: (newProduct: {
     id: number;
