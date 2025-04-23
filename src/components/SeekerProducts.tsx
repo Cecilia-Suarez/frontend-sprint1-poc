@@ -41,8 +41,8 @@ const SeekerProducts = ({ onFilter }: SeekerProductsProps) => {
         <option value="">Todas las categorías</option>
         <option value="men's clothing">men's clothing</option>
         <option value="jewelery">jewelery</option>
-        <option value="pop">electronics</option>
-        <option value="clásica">electronics</option>
+        <option value="electronics">electronics</option>
+        <option value="women's clothing">women's clothing</option>
       </select>
       <button type="submit" onClick={handleFilter} className="rounded bg-blue-700 p-2 text-white">
         Filtrar
