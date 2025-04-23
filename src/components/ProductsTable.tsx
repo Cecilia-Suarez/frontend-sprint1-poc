@@ -6,7 +6,6 @@ import ModalEditProduct from "./ProductsTable/ModalEditProduct";
 import Button from "./ProductsTable/Button";
 import ModalAddProduct from "./ProductsTable/ModalAddProduct";
 import SeekerProducts from "./SeekerProducts";
-
 interface Product {
   id: number;
   title: string;
@@ -50,7 +49,7 @@ const ProductsTable = () => {
 
   const handleSaveEdit = (updatedProduct: Product) => {
     setProducts((prevProducts) =>
-      prevProducts.map((product) => (product.id === updatedProduct.id ? updatedProduct : product))
+      prevProducts.map((product) => (product.id === updatedProduct.id ? updatedProduct : product)),
     );
     setIsEditModalOpen(false);
     setEditingProduct(null);
@@ -65,7 +64,7 @@ const ProductsTable = () => {
   if (isLoading) return <Loader />;
   if (isError || !data || data.length === 0) return <p>No hay datos disponibles.</p>;
 
-  const filteredData = data.filter((product) => {
+  const filteredData = products.filter((product) => {
     const matchesSearchTerm = product.title.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory =
       selectedCategory === "" || product.category.toLowerCase() === selectedCategory.toLowerCase();
@@ -75,14 +74,17 @@ const ProductsTable = () => {
   return (
     <div className="p-4">
       <h1 className="mb-4 text-center text-lg font-bold">Productos</h1>
-      <SeekerProducts
-        onFilter={(term, category) => {
-          setSearchTerm(term);
-          setSelectedCategory(category);
-        }}
-      />
-      <div className="min-h-[480px] overflow-auto">
+      {successMessage && <div className="mt-4 font-bold text-green-500">{successMessage}</div>}
+      <div className="flex items-center gap-8 p-4">
+        <SeekerProducts
+          onFilter={(term, category) => {
+            setSearchTerm(term);
+            setSelectedCategory(category);
+          }}
+        />
         <Button actionType="add" onAdd={handleAddProduct} />
+      </div>
+      <div className="min-h-[480px] overflow-auto">
         <table className="min-w-full border-y border-gray-200 bg-gray-900">
           <thead className="font-bold">
             <tr>
@@ -110,7 +112,7 @@ const ProductsTable = () => {
                   <Button
                     product={product}
                     onEdit={handleEditClick}
-                    onDelete={(product) => {
+                    onDelete={(product: Product) => {
                       setCurrentProduct(product);
                       setIsDeleteModalOpen(true);
                     }}
@@ -119,7 +121,7 @@ const ProductsTable = () => {
                   <Button
                     product={product}
                     onEdit={handleEditClick}
-                    onDelete={(product) => {
+                    onDelete={(product: Product) => {
                       setCurrentProduct(product);
                       setIsDeleteModalOpen(true);
                     }}
@@ -139,16 +141,22 @@ const ProductsTable = () => {
 
       {isModalOpen && (
         <ModalAddProduct
-          onSave={(newProduct) => handleSave(newProduct)}
-          onClose={() => setIsModalOpen(false)}
+          onSave={(newProduct) => {
+            handleSave(newProduct);
+          }}
+          onClose={() => {
+            setIsModalOpen(false);
+          }}
         />
       )}
 
-      {editingProduct && (
+      {isEditModalOpen && editingProduct && (
         <ModalEditProduct
           product={editingProduct}
           onSave={handleSaveEdit}
-          onClose={() => setIsEditModalOpen(false)}
+          onClose={() => {
+            setIsEditModalOpen(false);
+          }}
         />
       )}
 
@@ -156,7 +164,9 @@ const ProductsTable = () => {
         <ModalDeleteProduct
           product={currentProduct}
           onDelete={handleDeleteProduct}
-          onClose={() => setIsDeleteModalOpen(false)}
+          onClose={() => {
+            setIsDeleteModalOpen(false);
+          }}
         />
       )}
     </div>

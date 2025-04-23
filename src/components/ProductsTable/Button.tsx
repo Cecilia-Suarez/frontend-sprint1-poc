@@ -1,5 +1,12 @@
 import React from "react";
 
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+}
 interface ButtonsProductProps {
   product?: Product;
   onEdit?: (product: Product) => void;
@@ -17,9 +24,9 @@ const Button: React.FC<ButtonsProductProps> = ({
 }) => {
   const handleClick = () => {
     if (actionType === "edit" && product) {
-      onEdit && onEdit(product);
+      onEdit?.(product);
     } else if (actionType === "delete" && product) {
-      onDelete && onDelete(product);
+      onDelete?.(product);
     } else if (actionType === "add" && onAdd) {
       onAdd();
     }
