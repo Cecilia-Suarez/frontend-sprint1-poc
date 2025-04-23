@@ -21,7 +21,7 @@ const SeekerProducts = ({ onFilter }: SeekerProductsProps) => {
   };
 
   return (
-    <div className="mb-4 flex gap-2">
+    <div className="flex gap-2">
       <input
         type="text"
         placeholder="Buscar productos..."
