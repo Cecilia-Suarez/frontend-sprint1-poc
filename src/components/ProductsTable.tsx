@@ -49,7 +49,7 @@ const ProductsTable = () => {
 
   const handleSaveEdit = (updatedProduct: Product) => {
     setProducts((prevProducts) =>
-      prevProducts.map((product) => (product.id === updatedProduct.id ? updatedProduct : product))
+      prevProducts.map((product) => (product.id === updatedProduct.id ? updatedProduct : product)),
     );
     setIsEditModalOpen(false);
     setEditingProduct(null);
@@ -74,14 +74,16 @@ const ProductsTable = () => {
   return (
     <div className="p-4">
       <h1 className="mb-4 text-center text-lg font-bold">Productos</h1>
-      <SeekerProducts
-        onFilter={(term, category) => {
-          setSearchTerm(term);
-          setSelectedCategory(category);
-        }}
-      />
-      <div className="min-h-[480px] overflow-auto">
+      <div className="flex items-center gap-8 p-4">
+        <SeekerProducts
+          onFilter={(term, category) => {
+            setSearchTerm(term);
+            setSelectedCategory(category);
+          }}
+        />
         <Button actionType="add" onAdd={handleAddProduct} />
+      </div>
+      <div className="min-h-[480px] overflow-auto">
         <table className="min-w-full border-y border-gray-200 bg-gray-900">
           <thead className="font-bold">
             <tr>
