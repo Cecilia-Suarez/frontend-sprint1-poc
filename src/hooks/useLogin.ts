@@ -1,9 +1,9 @@
-import api from "../api/api";
+import api from "@/api/api";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { jwtDecode } from "jwt-decode";
-import { DecodedToken } from "../context/AuthContext";
+import { DecodedToken } from "@/context/AuthContext";
 
 interface LoginPayload {
   email: string;
@@ -22,8 +22,10 @@ const useLogin = () => {
       try {
         const response = await api.post<string>("/auth/login", payload);
         const token = response.data;
+
         localStorage.setItem("token", token);
         const decoded = jwtDecode<DecodedToken>(token);
+
         setUser(decoded);
         console.log("Usuario logueado");
         return { token };
@@ -32,6 +34,7 @@ const useLogin = () => {
           const message = error.response?.data
             ? (error.response.data as string)
             : "Unknown error during login";
+
           throw new Error(message);
         } else {
           throw new Error("Unknown error during login");

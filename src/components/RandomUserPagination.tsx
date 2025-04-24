@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useRandomUser, { ApiResponse } from "../hooks/useRandomUser";
+import useRandomUser, { ApiResponse } from "@/hooks/useRandomUser";
 
 export const RandomUsersPagination = () => {
   const [page, setPage] = useState(1);
