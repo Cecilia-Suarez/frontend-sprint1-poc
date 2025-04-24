@@ -1,17 +1,18 @@
 import { useState } from "react";
-import usePublicApi from "@/hooks/usePublicApi";
 import Loader from "@/components/Loader";
 import Pagination from "@/components/Pagination";
+import useFetch from "@/hooks/useFetch";
 
-interface MusicProps {
+interface UserList {
   id: number;
-  name: string;
   email: string;
-  phone: string;
+  name: string;
+  lastName: string;
+  role: string;
 }
 
-const MusicList = () => {
-  const { data, isLoading, isError } = usePublicApi<MusicProps[]>(["musicos"], "/users");
+const UserList = () => {
+  const { data, isLoading, isError } = useFetch<UserList[]>("users", "/users/getAllUsers");
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const itemsPerPage = 5;
@@ -49,18 +50,22 @@ const MusicList = () => {
         ) : (
           <>
             <div className="grid grid-cols-3 gap-8 border-y border-gray-200 bg-gray-900 p-4 font-bold">
+              <div>ID</div>
               <div>Nombre</div>
+              <div>Apellido</div>
               <div>Email</div>
-              <div>Teléfono</div>
+              <div>Rol</div>
             </div>
             {paginatedData.map((music) => (
               <div
                 key={music.id}
                 className="grid grid-cols-3 gap-8 border-b border-gray-200 bg-gray-900 p-4"
               >
+                <div>{music.id}</div>
                 <div>{music.name}</div>
+                <div>{music.lastName}</div>
                 <div>{music.email}</div>
-                <div>{music.phone}</div>
+                <div>{music.role}</div>
               </div>
             ))}
             <Pagination
@@ -77,4 +82,4 @@ const MusicList = () => {
   );
 };
 
-export default MusicList;
+export default UserList;
