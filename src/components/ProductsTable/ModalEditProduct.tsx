@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import api from "../../api/apiAuthAndProducts";
+import api from "../../api/api";
 
 interface EditProductProps {
   product: { id: number; title: string; price: number; description: string; category: string };
