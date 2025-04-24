@@ -56,6 +56,16 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+@layer components {
+  .table-th{
+    @apply border-b px-4 py-2 text-center;
+  }
+
+  .table-td {
+    @apply border-b px-4 py-2;
+  }
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
