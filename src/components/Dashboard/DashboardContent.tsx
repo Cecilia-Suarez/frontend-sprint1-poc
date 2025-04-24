@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Sidebar from "./Sidebar";
 import UserProfile from "./UserProfile";
 import ProductsTable from "./ProductsTable";
 import MusicList from "./MusicList";
 
-const Dashboard: React.FC = () => {
+const Dashboard = () => {
   const [selectedSection, setSelectedSection] = useState("books");
 
   const renderContent = () => {
