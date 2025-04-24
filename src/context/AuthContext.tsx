@@ -3,6 +3,7 @@ import { jwtDecode } from "jwt-decode";
 
 export interface DecodedToken {
   name: string;
+  role: string;
 }
 
 interface AuthContext {

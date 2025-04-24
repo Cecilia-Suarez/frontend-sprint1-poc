@@ -19,12 +19,6 @@ const Header = () => {
             <Link to="/register" className="hover:underline">
               Registrarse
             </Link>
-            <Link to="/MusicList" className="hover:underline">
-              Lista de Músicos
-            </Link>
-            <Link to="/products" className="hover:underline">
-              Productos
-            </Link>
           </>
         ) : (
           <UserMenu />

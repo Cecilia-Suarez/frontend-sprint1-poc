@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import useProducts from "../hooks/useProducts";
-import Loader from "./Loader";
-import ModalDeleteProduct from "./ProductsTable/ModalDeleteProduct";
-import ModalEditProduct from "./ProductsTable/ModalEditProduct";
-import Button from "./ProductsTable/Button";
-import ModalAddProduct from "./ProductsTable/ModalAddProduct";
-import SeekerProducts from "./SeekerProducts";
+import useProducts from "../../hooks/useProducts";
+import Loader from "../Loader";
+import ModalDeleteProduct from "../ProductsTable/ModalDeleteProduct";
+import ModalEditProduct from "../ProductsTable/ModalDeleteProduct";
+import Button from "../ProductsTable/Button";
+import ModalAddProduct from "../ProductsTable/ModalAddProduct";
+import SeekerProducts from "../SeekerProducts";
+
 interface Product {
   id: number;
   title: string;

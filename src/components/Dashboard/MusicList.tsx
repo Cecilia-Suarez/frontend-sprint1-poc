@@ -1,7 +1,7 @@
 import { useState } from "react";
-import usePublicApi from "../hooks/usePublicApi";
-import Loader from "../components/Loader";
-import Pagination from "../components/Pagination";
+import usePublicApi from "../../hooks/usePublicApi";
+import Loader from "../Loader";
+import Pagination from "../Pagination";
 
 interface MusicProps {
   id: number;
