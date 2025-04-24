@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useProducts from "../../hooks/useProducts";
+import useProducts from "@/hooks/useProducts";
 import Loader from "../Loader";
 import ModalDeleteProduct from "../ProductsTable/ModalDeleteProduct";
 import ModalEditProduct from "../ProductsTable/ModalDeleteProduct";

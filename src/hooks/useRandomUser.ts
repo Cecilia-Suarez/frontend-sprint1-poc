@@ -1,5 +1,5 @@
 import { useQuery, type UseQueryResult } from "@tanstack/react-query";
-import apiRandomUser from "../api/apiRandomUser";
+import apiRandomUser from "@/api/apiRandomUser";
 import { AxiosResponse } from "axios";
 
 export interface RandomUser {

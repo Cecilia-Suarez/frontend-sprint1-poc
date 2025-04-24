@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Dashboard/Sidebar";
 import Books from "../components/Dashboard/ProductsTable";
-import Profile from "../components/Dashboard/Profile";
+import Profile from "../components/Dashboard/UserProfile";
 import MusicList from "../components/Dashboard/MusicList";
 
 const Dashboard: React.FC = () => {
@@ -19,7 +19,7 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex h-screen w-screen justify-between">
       <Sidebar onSelect={setSelectedSection} />
       <main className="flex-1 p-6">{renderSection()}</main>
     </div>

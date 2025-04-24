@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import useAuth from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, setUser } = useAuth();
+  const { user, handleLogout } = useAuth();
   const navigate = useNavigate();
 
   const toggleMenu = () => {
@@ -12,9 +12,8 @@ const UserMenu = () => {
   };
 
   const handleLogOut = () => {
-    localStorage.removeItem("token");
-    setUser(null);
-    void navigate("/login");
+    handleLogout();
+    void navigate("/");
   };
 
   if (!user) return null;

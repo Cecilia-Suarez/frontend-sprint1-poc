@@ -26,7 +26,7 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
+  display: grid;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
@@ -63,6 +63,14 @@ button:focus-visible {
 
   .table-td {
     @apply border-b px-4 py-2;
+  }
+
+  .label-text{
+    @apply text-sm text-gray-500 font-bold;
+  }
+
+  .value-text{
+    @apply text-md font-medium text-white;
   }
 }
 

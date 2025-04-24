@@ -1,7 +1,7 @@
-import useFetch from "../hooks/useFetch";
+import useFetch from "@/hooks/useFetch";
 import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage";
-import bookCover from "../assets/book.webp";
+import bookCover from "@/assets/book.webp";
 
 interface BooksProps {
   id: number;

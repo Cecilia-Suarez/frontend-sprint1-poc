@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
-import UserProfile from "./Profile";
+import UserProfile from "./UserProfile";
 import ProductsTable from "./ProductsTable";
 import MusicList from "./MusicList";
 
