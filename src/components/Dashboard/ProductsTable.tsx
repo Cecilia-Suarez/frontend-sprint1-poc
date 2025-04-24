@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import useProducts from "../hooks/useProducts";
-import Loader from "./Loader";
-import ModalDeleteProduct from "./ProductsTable/ModalDeleteProduct";
-import ModalEditProduct from "./ProductsTable/ModalEditProduct";
-import ButtonProductTable from "./ProductsTable/ButtonProductTable";
-import ModalAddProduct from "./ProductsTable/ModalAddProduct";
-import SeekerProducts from "./SeekerProducts";
-import type { Product, ProductFormData } from "../types/product";
+import useProducts from "../../hooks/useProducts";
+import Loader from "../Loader";
+import ModalDeleteProduct from "../ProductsTable/ModalDeleteProduct";
+import ModalEditProduct from "../ProductsTable/ModalEditProduct";
+import ButtonProductTable from "../ProductsTable/ButtonProductTable";
+import ModalAddProduct from "../ProductsTable/ModalAddProduct";
+import SeekerProducts from "../SeekerProducts";
+import type { Product, ProductFormData } from "../../types/product";
 
 const ProductsTable: React.FC = () => {
   const { data, isLoading, isError } = useProducts<Product[]>("products", "/products");
