@@ -1,10 +1,15 @@
 import { useQuery, type UseQueryResult } from "@tanstack/react-query";
 import api from "@/api/api";
 
-const useFetch = <T>(key: string, endpoint: string): UseQueryResult<T> => {
+const useFetch = <T>(
+  key: string,
+  endpoint: string,
+  page?: number,
+  size?: number,
+): UseQueryResult<T> => {
   const fetchData = async (): Promise<T> => {
     try {
-      const { data } = await api.get<T>(endpoint);
+      const { data } = await api.get<T>(endpoint, { params: { page, size } });
 
       if (!data) {
         throw new Error("No data was received from the API");
@@ -20,10 +25,11 @@ const useFetch = <T>(key: string, endpoint: string): UseQueryResult<T> => {
   };
 
   return useQuery({
-    queryKey: [key],
+    queryKey: [key, page],
     queryFn: fetchData,
     staleTime: 1000 * 60 * 5,
     retry: false,
+    refetchOnWindowFocus: false,
   });
 };
 
