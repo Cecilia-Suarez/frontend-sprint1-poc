@@ -70,7 +70,7 @@ button:focus-visible {
   }
 
   .value-text{
-    @apply text-md font-medium text-white;
+    @apply text-lg font-medium text-white;
   }
 }
 
