@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   useEffect(() => {
     const storedToken = localStorage.getItem("userToken");
     if (storedToken) {
-      const token = JSON.parse(storedToken) as string;
+      const token = storedToken;
       setAuthToken(token);
 
       try {
