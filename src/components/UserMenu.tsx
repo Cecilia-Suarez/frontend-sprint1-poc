@@ -13,7 +13,7 @@ const UserMenu = () => {
 
   const handleLogOut = () => {
     handleLogout();
-    void navigate("/");
+    navigate("/");
   };
 
   if (!user) return null;
