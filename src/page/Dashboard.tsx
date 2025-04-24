@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Sidebar from "../components/Dashboard/Sidebar";
 import Books from "../components/Dashboard/ProductsTable";
 import Profile from "../components/Dashboard/UserProfile";
-import MusicList from "../components/Dashboard/MusicList";
+import UserList from "../components/Dashboard/UserList";
 
-const Dashboard: React.FC = () => {
+const Dashboard = () => {
   const [selectedSection, setSelectedSection] = useState("books");
 
   const renderSection = () => {
@@ -12,7 +12,7 @@ const Dashboard: React.FC = () => {
       case "books":
         return <Books />;
       case "users":
-        return <MusicList />;
+        return <UserList />;
       case "profile":
         return <Profile />;
     }

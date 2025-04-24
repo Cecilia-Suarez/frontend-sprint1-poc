@@ -1,11 +1,10 @@
 import useAuth from "@/hooks/useAuth";
-import React from "react";
 
 interface SidebarProps {
   onSelect: (section: string) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
+const Sidebar = ({ onSelect }: SidebarProps) => {
   const { user } = useAuth();
 
   const ROLE_USER = "ROLE_USER";

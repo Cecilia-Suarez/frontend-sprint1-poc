@@ -6,7 +6,6 @@ import NotFound from "./page/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./page/Dashboard";
 import Header from "./components/Header";
-import { RandomUsersPagination } from "./components/RandomUserPagination";
 
 const App = () => {
   return (
