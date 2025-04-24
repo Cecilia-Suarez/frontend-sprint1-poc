@@ -7,9 +7,25 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 export default api;
+
+const rejectWithError = (err: unknown) =>
+  Promise.reject(err instanceof Error ? err : new Error(String(err)));
+
+//Interceptor de requests: agrega el token
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("userToken");
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+    console.log("Token enviado:", config.headers.Authorization);
+  }
+
+  return config;
+}, rejectWithError);
 
 export const register = (data: RegisterFormFields) => api.post<string>("/auth/register", data);
 
