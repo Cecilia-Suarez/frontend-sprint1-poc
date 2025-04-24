@@ -1,13 +1,9 @@
 import Books from "../components/Books";
-import LoginTest from "../test/loginTest";
-import RegisterTest from "../test/registerTest";
 
 const Home = () => {
   return (
-    <div>
+    <div className="flex justify-around items-center w-screen">
       <Books />
-      <RegisterTest />
-      <LoginTest />
     </div>
   );
 };
