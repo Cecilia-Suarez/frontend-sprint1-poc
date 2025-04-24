@@ -3,7 +3,6 @@ import ModalBase from "./ModalBase";
 import ProductForm from "./ProductForm";
 import { z } from "zod";
 import { ProductTableSchema } from "../../validation/ProductTableSchema";
-
 type ProductFormData = z.infer<typeof ProductTableSchema>;
 
 interface ModalAddProductProps {

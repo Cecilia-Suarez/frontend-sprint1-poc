@@ -1,6 +1,6 @@
 import React from "react";
 import ModalBase from "./ModalBase";
-import { Product } from "./ModalAddProduct";
+import type { Product } from "../../types/product";
 interface ModalDeleteProductProps {
   product: Product;
   onConfirm: () => void;
@@ -17,12 +17,14 @@ const ModalDeleteProduct: React.FC<ModalDeleteProductProps> = ({ product, onConf
           </p>
           <div className="flex justify-end gap-2">
             <button
+              type="button"
               onClick={onClose}
               className="rounded-md bg-gray-200 px-4 py-2 hover:bg-gray-300"
             >
               Cancelar
             </button>
             <button
+              type="button"
               onClick={onConfirm}
               className="rounded-md bg-red-500 px-4 py-2 text-white hover:bg-red-600"
             >

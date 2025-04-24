@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const UserMenu = () => {
@@ -26,7 +26,7 @@ const UserMenu = () => {
         onClick={toggleMenu}
         className="rounded-lg px-3 py-2 text-sm font-medium capitalize transition"
       >
-        {user.user} ▼
+        {user.name} ▼
       </button>
 
       {isOpen && (
