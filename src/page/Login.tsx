@@ -3,6 +3,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { login } from "@/api/api";
+import useAuth from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 // import Notification from "../components/Notifications";
 
 const loginSchema = z.object({
@@ -27,6 +29,9 @@ const Login = () => {
   //   type: "error" as "success" | "error",
   //   show: false,
   // });
+
+  const { handleLogin } = useAuth();
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<FormFields> = async (formData: FormFields) => {
     // if (data.email === "test@example.com" && data.password === "password123") {
@@ -53,6 +58,9 @@ const Login = () => {
       if (!data) {
         throw new Error("Error al intentar ingresar");
       }
+
+      handleLogin(data);
+      void navigate("/");
     } catch (error) {
       console.error(error);
       setError("root", {
@@ -67,9 +75,7 @@ const Login = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="max-w-lg rounded-lg bg-gray-800 p-8 text-white shadow-md"
       >
-        <h2 className="mb-6 text-center text-3xl font-bold text-indigo-400">
-          Login para Músicos Emergentes
-        </h2>
+        <h2 className="mb-6 text-center text-3xl font-bold text-indigo-400">Iniciar Sesión</h2>
 
         <div className="mb-4">
           <label htmlFor="email" className="mb-2 block text-gray-300">

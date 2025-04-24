@@ -6,8 +6,6 @@ import NotFound from "./page/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./page/Dashboard";
 import Header from "./components/Header";
-import MusicList from "./page/MusicList";
-import ProductsTable from "./components/ProductsTable";
 import { RandomUsersPagination } from "./components/RandomUserPagination";
 
 const App = () => {
@@ -27,8 +25,6 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/MusicList" element={<MusicList />} />
-        <Route path="/products" element={<ProductsTable />} />
         <Route path="/randomUsers" element={<RandomUsersPagination />} />
       </Routes>
     </Router>
