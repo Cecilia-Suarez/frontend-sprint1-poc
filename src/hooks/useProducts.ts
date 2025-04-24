@@ -1,5 +1,5 @@
 import { useQuery, type UseQueryResult } from "@tanstack/react-query";
-import api from "../api/api";
+import api from "@/api/api";
 
 const useFetch = <T>(key: string, endpoint: string): UseQueryResult<T> => {
   const fetchData = async (): Promise<T> => {

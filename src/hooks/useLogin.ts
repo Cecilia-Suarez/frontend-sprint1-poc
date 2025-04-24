@@ -1,9 +1,9 @@
-import api from "../api/api";
+import api from "@/api/api";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { jwtDecode } from "jwt-decode";
-import { DecodedToken } from "../context/AuthContext";
+import { DecodedToken } from "@/context/AuthContext";
 
 interface LoginPayload {
   email: string;
