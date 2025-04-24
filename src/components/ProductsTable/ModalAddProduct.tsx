@@ -11,10 +11,7 @@ interface ModalAddProductProps {
   onAddProduct: (newProduct: ProductFormData) => void;
 }
 
-const ModalAddProduct: React.FC<ModalAddProductProps> = ({
-  onClose,
-  onAddProduct,
-}) => {
+const ModalAddProduct: React.FC<ModalAddProductProps> = ({ onClose, onAddProduct }) => {
   const handleSubmit = (data: ProductFormData) => {
     const newProduct = {
       ...data,
@@ -29,8 +26,9 @@ const ModalAddProduct: React.FC<ModalAddProductProps> = ({
       <div className="w-96 rounded-lg border border-white bg-black p-6">
         <ModalBase title="Agregar producto" onClose={onClose}>
           <ProductForm onSubmit={handleSubmit} />
-          <div className="flex justify-end py-4 gap-2">
+          <div className="flex justify-end gap-2 py-4">
             <button
+              type="button"
               onClick={onClose}
               className="rounded-md bg-gray-200 px-4 py-2 hover:bg-gray-300"
             >

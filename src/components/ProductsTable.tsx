@@ -6,22 +6,16 @@ import ModalEditProduct from "./ProductsTable/ModalEditProduct";
 import ButtonProductTable from "./ProductsTable/ButtonProductTable";
 import ModalAddProduct from "./ProductsTable/ModalAddProduct";
 import SeekerProducts from "./SeekerProducts";
-interface Product {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  category: string;
-}
+import type { Product, ProductFormData } from "../types/product";
 
 const ProductsTable: React.FC = () => {
   const { data, isLoading, isError } = useProducts<Product[]>("products", "/products");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [editingProduct, setEditingProduct] = useState<ProductFormData | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<ProductFormData[]>([]);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -41,8 +35,10 @@ const ProductsTable: React.FC = () => {
     if (data) setProducts(data);
   }, [data]);
 
-  const handleAddProduct = (newProduct: Product) => {
-    setProducts((prevProducts) => [...prevProducts, newProduct]);
+  const handleAddProduct = (newProduct: Omit<Product, "id">) => {
+    const newId = products.length ? Math.max(...products.map((p) => p.id)) + 1 : 1;
+    const productWithId = { ...newProduct, id: newId };
+    setProducts((prevProducts) => [...prevProducts, productWithId]);
     setIsModalOpen(false);
     setSuccessMessage("Producto agregado con éxito!");
   };
@@ -52,25 +48,11 @@ const ProductsTable: React.FC = () => {
     setIsEditModalOpen(true);
   };
 
-  const handleSubmitEdit = (updatedProduct: Product) => {
+  const handleSaveEditedProduct = (updateProduct: ProductFormData) => {
     setProducts((prevProducts) =>
-      prevProducts.map((product) =>
-        product.id === updatedProduct.id ? updatedProduct : product
-      )
+      prevProducts.map((p) => (p.id === updateProduct.id ? updateProduct : p)),
     );
-    setIsEditModalOpen(false);
     setEditingProduct(null);
-    setSuccessMessage("Producto actualizado con éxito!");
-  };
-  
-  const handleChange = (field: keyof Product, value: string | number) => {
-    setEditingProduct((prevProduct) => {
-      if (!prevProduct) return null;
-      return {
-        ...prevProduct,
-        [field]: value,
-      };
-    });
   };
 
   const handleDelete = (id: number) => {
@@ -105,7 +87,12 @@ const ProductsTable: React.FC = () => {
             setSelectedCategory(category);
           }}
         />
-        <ButtonProductTable actionType="add" onAdd={() => {setIsModalOpen(true)}} />
+        <ButtonProductTable
+          actionType="add"
+          onAdd={() => {
+            setIsModalOpen(true);
+          }}
+        />
       </div>
       <div className="min-h-[480px] overflow-auto">
         <table className="min-w-full border-y border-gray-200 bg-gray-900">
@@ -135,13 +122,17 @@ const ProductsTable: React.FC = () => {
                   <ButtonProductTable
                     product={product}
                     onEdit={handleEditClick}
-                    onDelete={() => {openDeleteModal(product)}}
+                    onDelete={() => {
+                      openDeleteModal(product);
+                    }}
                     actionType="edit"
                   />
                   <ButtonProductTable
                     product={product}
                     onEdit={handleEditClick}
-                    onDelete={() => {openDeleteModal(product)}}
+                    onDelete={() => {
+                      openDeleteModal(product);
+                    }}
                     actionType="delete"
                   />
                 </td>
@@ -158,7 +149,9 @@ const ProductsTable: React.FC = () => {
 
       {isModalOpen && (
         <ModalAddProduct
-          onClose={() => {setIsModalOpen(false)}}
+          onClose={() => {
+            setIsModalOpen(false);
+          }}
           onAddProduct={handleAddProduct}
         />
       )}
@@ -166,16 +159,22 @@ const ProductsTable: React.FC = () => {
       {isEditModalOpen && editingProduct && (
         <ModalEditProduct
           product={editingProduct}
-          onSubmit={handleSubmitEdit}
-          onClose={() => {setIsEditModalOpen(false)}}
+          onSubmit={handleSaveEditedProduct}
+          onClose={() => {
+            setIsEditModalOpen(false);
+          }}
         />
       )}
 
       {isDeleteModalOpen && selectedProduct && (
         <ModalDeleteProduct
           product={selectedProduct}
-          onConfirm={() => {handleDelete(selectedProduct.id)}}
-          onClose={() => {setIsDeleteModalOpen(false)}}
+          onConfirm={() => {
+            handleDelete(selectedProduct.id);
+          }}
+          onClose={() => {
+            setIsDeleteModalOpen(false);
+          }}
         />
       )}
     </div>

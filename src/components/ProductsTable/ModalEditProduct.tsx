@@ -4,11 +4,11 @@ import ProductForm from "./ProductForm";
 import { z } from "zod";
 import { ProductTableSchema } from "../../validation/ProductTableSchema";
 
-type ProductFormData = z.infer<typeof ProductTableSchema>;
+type NewProductFormData = z.infer<typeof ProductTableSchema>;
 
 interface ModalEditProductProps {
-  product: ProductFormData;
-  onSubmit: (data: ProductFormData) => void;
+  product: NewProductFormData;
+  onSubmit: (data: NewProductFormData) => void;
   onClose: () => void;
 }
 
@@ -17,13 +17,7 @@ const ModalEditProduct: React.FC<ModalEditProductProps> = ({ product, onSubmit, 
     <div className="bg-opacity-50 fixed inset-0 flex items-center justify-center bg-black">
       <div className="w-96 rounded-lg border border-white bg-black p-6">
         <ModalBase title="Editar producto" onClose={onClose}>
-          <ProductForm
-            initialData={product}
-            onSubmit={(updatedProduct) => {
-              onSubmit(updatedProduct);
-            }}
-          />
-
+          <ProductForm initialData={product} onSubmit={onSubmit} />
           <div className="mt-4 flex justify-end gap-2">
             <button
               onClick={onClose}
