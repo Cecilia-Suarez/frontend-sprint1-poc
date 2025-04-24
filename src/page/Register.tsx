@@ -2,7 +2,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { register as authRegister } from "@/api/backend";
+import { register as authRegister } from "@/api/api";
 // import Notification from "../components/Notifications";
 
 const registerSchema = z.object({
