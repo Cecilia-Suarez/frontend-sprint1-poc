@@ -15,7 +15,7 @@ interface ButtonsProductProps {
   actionType: "edit" | "delete" | "add";
 }
 
-const Button: React.FC<ButtonsProductProps> = ({
+const ButtonProductTable: React.FC<ButtonsProductProps> = ({
   product,
   onEdit,
   onDelete,
@@ -36,17 +36,11 @@ const Button: React.FC<ButtonsProductProps> = ({
     <button
       type="button"
       onClick={handleClick}
-      className={`rounded px-4 py-1 font-semibold text-white shadow ${
-        actionType === "edit"
-          ? "bg-blue-600"
-          : actionType === "delete"
-            ? "bg-red-600 hover:bg-red-700"
-            : "bg-green-600 hover:bg-green-700"
-      }`}
+      className={`rounded px-4 py-1 font-semibold text-white shadow`}
     >
       {actionType === "edit" ? "Editar" : actionType === "delete" ? "Eliminar" : "Agregar"}
     </button>
   );
 };
 
-export default Button;
+export default ButtonProductTable;
