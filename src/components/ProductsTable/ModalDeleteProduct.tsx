@@ -1,5 +1,5 @@
 import React from "react";
-import api from "../../api/apiAuthAndProducts";
+import api from "../../api/api";
 
 interface DeleteProductProps {
   product: { id: number; title: string; price: number; description: string; category: string };

@@ -2,7 +2,7 @@ import { createContext, useState, useLayoutEffect, useMemo, use, PropsWithChildr
 import { jwtDecode } from "jwt-decode";
 
 export interface DecodedToken {
-  user: string;
+  name: string;
 }
 
 interface AuthContext {
