@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import api from "../../api/apiAuthAndProducts";
+import api from "../../api/api";
 import { AxiosResponse } from "axios";
 
 interface Product {
