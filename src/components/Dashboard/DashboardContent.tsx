@@ -2,7 +2,7 @@ import { useState } from "react";
 import Sidebar from "./Sidebar";
 import UserProfile from "./UserProfile";
 import ProductsTable from "./ProductsTable";
-import MusicList from "./MusicList";
+import UserList from "./UserList";
 
 const Dashboard = () => {
   const [selectedSection, setSelectedSection] = useState("books");
@@ -14,7 +14,7 @@ const Dashboard = () => {
       case "profile":
         return <UserProfile />;
       case "user":
-        return <MusicList />;
+        return <UserList />;
     }
   };
 

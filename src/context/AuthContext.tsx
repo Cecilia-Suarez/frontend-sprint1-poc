@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const handleLogin = (userToken: string) => {
     setAuthToken(userToken);
-    localStorage.setItem("userToken", JSON.stringify(userToken));
+    localStorage.setItem("userToken", userToken);
 
     const userData = jwtDecode<DecodedToken>(userToken);
     setUser(userData);
