@@ -1,9 +1,8 @@
-// import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { register as authRegister } from "@/api/api";
-// import Notification from "../components/Notifications";
+import { toast } from "sonner";
 
 const registerSchema = z.object({
   name: z.string().min(3, { message: "Nombre obligatorio" }),
@@ -25,33 +24,7 @@ const Register = () => {
     resolver: zodResolver(registerSchema),
   });
 
-  // const [notification, setNotification] = useState({
-  //   text: "",
-  //   type: "error" as "success" | "error",
-  //   show: false,
-  // });
-
   const onSubmit: SubmitHandler<FormFields> = async (formData: FormFields) => {
-    // if (data.email === "registrado@example.com") {
-    //   setNotification({
-    //     text: "Email ya registrado!!.",
-    //     type: "error",
-    //     show: true,
-    //   });
-    // } else if (!data.name || !data.password || !data.email) {
-    //   setNotification({
-    //     text: "Revise los campos!!.",
-    //     type: "error",
-    //     show: true,
-    //   });
-    // } else {
-    //   setNotification({
-    //     text: "Registrado con Ëxito!!.",
-    //     type: "success",
-    //     show: true,cls
-
-    //   });
-    // }
     console.log("FORM VALUES --> ", formData);
     console.log("ENVIANDO AL SERVIDOR...");
 
@@ -63,8 +36,11 @@ const Register = () => {
       if (!data) {
         throw new Error("Error al intentar ingresar");
       }
+
+      toast.success(`Te registraste con éxito ${formData.name}`);
     } catch (error) {
       console.error(error);
+      toast.error("Error al ingresar los datos");
       setError("root", {
         message: error as string,
       });
@@ -149,15 +125,6 @@ const Register = () => {
         </button>
         {errors.root && <div className="text-red-500">{errors.root.message}</div>}
       </form>
-
-      {/* <Notification
-        text={notification.text}
-        type={notification.type}
-        show={notification.show}
-        onClose={() => {
-          setNotification({ ...notification, show: false });
-        }}
-      /> */}
     </div>
   );
 };
