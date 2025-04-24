@@ -6,7 +6,6 @@ import NotFound from "./page/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./page/Dashboard";
 import Header from "./components/Header";
-import { RandomUsersPagination } from "./components/RandomUserPagination";
 
 const App = () => {
   return (
@@ -17,15 +16,9 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/randomUsers" element={<RandomUsersPagination />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
       </Routes>
     </Router>
   );
