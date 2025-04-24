@@ -12,7 +12,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
   const ROLE_ADMIN = "ROLE_ADMIN";
 
   return (
-    <div className="h-screen w-64 bg-gray-900 p-4">
+    <div className="h-screen w-64 flex-col bg-gray-900 p-4">
       <h2 className="mb-6 text-xl font-bold">Dashboard</h2>
       <ul className="space-y-4">
         {user?.role === ROLE_USER && (
