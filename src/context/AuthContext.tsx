@@ -2,7 +2,7 @@ import { createContext, ReactNode, useState, useEffect, useMemo, use } from "rea
 import { jwtDecode } from "jwt-decode";
 
 export interface DecodedToken {
-  user: string;
+  name: string;
 }
 
 interface AuthContextType {

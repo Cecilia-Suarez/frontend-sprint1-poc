@@ -20,7 +20,7 @@ const UserMenu = () => {
         onClick={toggleMenu}
         className="rounded-lg px-3 py-2 text-sm font-medium capitalize transition"
       >
-        {user.user} ▼
+        {user.name} ▼
       </button>
 
       {isOpen && (

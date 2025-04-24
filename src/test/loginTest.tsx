@@ -6,8 +6,8 @@ const LoginTest = () => {
 
   useEffect(() => {
     const hardcodedCredentials = {
-      username: "johnd",
-      password: "m38rmF$",
+      email: "elimen@gmail.com",
+      password: "1234567pas",
     };
 
     loginMutation.mutate(hardcodedCredentials);
