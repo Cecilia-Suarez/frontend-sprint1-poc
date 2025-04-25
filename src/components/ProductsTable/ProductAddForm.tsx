@@ -1,10 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ProductTableSchema } from "../../validation/ProductTableSchema";
+import { ProductAddTableSchema } from "../../validation/ProductTableSchema";
 import { z } from "zod";
 
-const ProductFormSchema = ProductTableSchema;
+const ProductFormSchema = ProductAddTableSchema;
 type ProductFormData = z.infer<typeof ProductFormSchema>;
 
 interface ProductFormProps {
@@ -12,7 +12,7 @@ interface ProductFormProps {
   onSubmit: (data: ProductFormData) => void;
 }
 
-const ProductForm: React.FC<ProductFormProps> = ({ initialData, onSubmit }) => {
+const ProductAddForm: React.FC<ProductFormProps> = ({ initialData, onSubmit }) => {
   const {
     register,
     handleSubmit,
@@ -74,4 +74,4 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData, onSubmit }) => {
   );
 };
 
-export default ProductForm;
+export default ProductAddForm;
