@@ -31,7 +31,7 @@ const ProductEditForm: React.FC<ProductFormProps> = ({ initialData, onSubmit }) 
           placeholder="Ingresa título"
           className="w-full rounded-md border border-gray-300 px-4 py-2"
         />
-        {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
+        {errors.title && <p className="text-sm text-red-500">{errors.title.message}</p>}
       </div>
 
       <div>
@@ -41,7 +41,7 @@ const ProductEditForm: React.FC<ProductFormProps> = ({ initialData, onSubmit }) 
           placeholder="Ingresar precio"
           className="w-full rounded-md border border-gray-300 px-4 py-2"
         />
-        {errors.price && <p className="text-red-500 text-sm">{errors.price.message}</p>}
+        {errors.price && <p className="text-sm text-red-500">{errors.price.message}</p>}
       </div>
 
       <div>
@@ -50,7 +50,7 @@ const ProductEditForm: React.FC<ProductFormProps> = ({ initialData, onSubmit }) 
           placeholder="Ingresa descripción"
           className="w-full rounded-md border border-gray-300 px-4 py-2"
         />
-        {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
+        {errors.description && <p className="text-sm text-red-500">{errors.description.message}</p>}
       </div>
 
       <div>
@@ -60,7 +60,7 @@ const ProductEditForm: React.FC<ProductFormProps> = ({ initialData, onSubmit }) 
           placeholder="Ingresa categoría"
           className="w-full rounded-md border border-gray-300 px-4 py-2"
         />
-        {errors.category && <p className="text-red-500 text-sm">{errors.category.message}</p>}
+        {errors.category && <p className="text-sm text-red-500">{errors.category.message}</p>}
       </div>
       <div className="flex justify-end gap-2">
         <button
