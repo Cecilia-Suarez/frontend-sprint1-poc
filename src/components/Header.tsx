@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import useAuth from "@/hooks/useAuth";
 import UserMenu from "./UserMenu";
 
 const Header = () => {
@@ -18,9 +18,6 @@ const Header = () => {
             </Link>
             <Link to="/register" className="hover:underline">
               Registrarse
-            </Link>
-            <Link to="/MusicList" className="hover:underline">
-              Lista de Músicos
             </Link>
           </>
         ) : (

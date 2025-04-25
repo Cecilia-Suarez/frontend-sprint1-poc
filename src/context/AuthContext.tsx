@@ -1,47 +1,60 @@
-import { createContext, useState, useLayoutEffect, useMemo, use, PropsWithChildren } from "react";
+import { createContext, useState, useEffect, useMemo, PropsWithChildren } from "react";
 import { jwtDecode } from "jwt-decode";
 
 export interface DecodedToken {
-  user: string;
+  name: string;
+  role: string;
+  email: string;
 }
 
-interface AuthContext {
+interface AuthContextType {
+  authToken?: string | null;
   user?: DecodedToken | null;
-  setUser: (user: DecodedToken | null) => void;
+  handleLogin: (userToken: string) => void;
+  handleLogout: () => void;
 }
 
-const AuthContext = createContext<AuthContext | undefined>(undefined);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 type AuthProviderProps = PropsWithChildren;
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
+  const [authToken, setAuthToken] = useState<string | null>();
   const [user, setUser] = useState<DecodedToken | null>();
 
-  useLayoutEffect(() => {
-    const token = localStorage.getItem("token");
+  const handleLogin = (userToken: string) => {
+    setAuthToken(userToken);
+    localStorage.setItem("userToken", userToken);
 
-    if (token) {
+    const userData = jwtDecode<DecodedToken>(userToken);
+    setUser(userData);
+  };
+
+  const handleLogout = () => {
+    setAuthToken(null);
+    setUser(null);
+    localStorage.removeItem("userToken");
+  };
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("userToken");
+    if (storedToken) {
+      const token = storedToken;
+      setAuthToken(token);
+
       try {
-        const decoded = jwtDecode<DecodedToken>(token);
-        setUser(decoded);
+        const userData = jwtDecode<DecodedToken>(token);
+        setUser(userData);
       } catch (error) {
-        console.error("Invalid token", error);
+        console.error("Token inválido", error);
         setUser(null);
       }
     }
   }, []);
 
-  const contextValue = useMemo(() => ({ user, setUser }), [user]);
+  const value = useMemo(() => ({ authToken, user, handleLogin, handleLogout }), [authToken, user]);
 
-  return <AuthContext value={contextValue}>{children}</AuthContext>;
+  return <AuthContext value={value}>{children}</AuthContext>;
 };
 
-export default AuthProvider;
-
-export const useAuth = () => {
-  const context = use(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider.");
-  }
-  return context;
-};
+export { AuthContext };

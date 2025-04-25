@@ -1,13 +1,9 @@
-import Albums from "../components/Albums";
-import LoginTest from "../test/loginTest";
-import RegisterTest from "../test/registerTest";
+import Books from "@/components/Books";
 
 const Home = () => {
   return (
-    <div>
-      <Albums />
-      <RegisterTest />
-      <LoginTest />
+    <div className="flex w-screen items-center justify-around">
+      <Books />
     </div>
   );
 };

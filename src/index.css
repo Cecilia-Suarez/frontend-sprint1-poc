@@ -26,7 +26,7 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
+  display: grid;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
@@ -54,6 +54,24 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+@layer components {
+  .table-th{
+    @apply border-b px-4 py-2 text-center;
+  }
+
+  .table-td {
+    @apply border-b px-4 py-2;
+  }
+
+  .label-text{
+    @apply text-base text-gray-500 font-bold;
+  }
+
+  .value-text{
+    @apply text-base font-medium text-white;
+  }
 }
 
 @media (prefers-color-scheme: light) {

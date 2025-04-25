@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import useAuth from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, setUser } = useAuth();
+  const { user, handleLogout } = useAuth();
   const navigate = useNavigate();
 
   const toggleMenu = () => {
@@ -12,9 +12,8 @@ const UserMenu = () => {
   };
 
   const handleLogOut = () => {
-    localStorage.removeItem("token");
-    setUser(null);
-    void navigate("/login");
+    handleLogout();
+    navigate("/");
   };
 
   if (!user) return null;
@@ -26,7 +25,7 @@ const UserMenu = () => {
         onClick={toggleMenu}
         className="rounded-lg px-3 py-2 text-sm font-medium capitalize transition"
       >
-        {user.user} ▼
+        {user.name} ▼
       </button>
 
       {isOpen && (

@@ -1,15 +1,17 @@
 import { useQuery, type UseQueryResult } from "@tanstack/react-query";
-import api from "@/api/api";
+import axios from "axios";
 
-const useFetch = <T>(
-  key: string,
-  endpoint: string,
-  page?: number,
-  size?: number,
-): UseQueryResult<T> => {
+const apiProducts = axios.create({
+  baseURL: "https://fakestoreapi.com",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+const useFetch = <T>(key: string, endpoint: string): UseQueryResult<T> => {
   const fetchData = async (): Promise<T> => {
     try {
-      const { data } = await api.get<T>(endpoint, { params: { page, size } });
+      const { data } = await apiProducts.get<T>(endpoint);
 
       if (!data) {
         throw new Error("No data was received from the API");
@@ -25,7 +27,7 @@ const useFetch = <T>(
   };
 
   return useQuery({
-    queryKey: [key, page],
+    queryKey: [key],
     queryFn: fetchData,
     staleTime: 1000 * 60 * 5,
     retry: false,
