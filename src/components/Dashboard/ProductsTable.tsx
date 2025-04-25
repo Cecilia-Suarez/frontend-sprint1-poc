@@ -7,6 +7,7 @@ import ButtonProductTable from "../ProductsTable/ButtonProductTable";
 import ModalAddProduct from "../ProductsTable/ModalAddProduct";
 import SeekerProducts from "../SeekerProducts";
 import type { Product, ProductFormData } from "../../types/product";
+import useAuth from "@/hooks/useAuth";
 
 const ProductsTable: React.FC = () => {
   const { data, isLoading, isError } = useProducts<Product[]>("products", "/products");
@@ -19,6 +20,8 @@ const ProductsTable: React.FC = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  const { user } = useAuth();
 
   useEffect(() => {
     if (successMessage) {
@@ -87,12 +90,14 @@ const ProductsTable: React.FC = () => {
             setSelectedCategory(category);
           }}
         />
-        <ButtonProductTable
-          actionType="add"
-          onAdd={() => {
-            setIsModalOpen(true);
-          }}
-        />
+        {user?.role === "ROLE_ADMIN" && (
+          <ButtonProductTable
+            actionType="add"
+            onAdd={() => {
+              setIsModalOpen(true);
+            }}
+          />
+        )}
       </div>
       <div className="min-h-[480px] overflow-auto">
         <table className="min-w-full border-y border-gray-200 bg-gray-900">
@@ -119,22 +124,26 @@ const ProductsTable: React.FC = () => {
                 </td>
                 <td className="table-td">{product.category}</td>
                 <td className="table-td space-x-2">
-                  <ButtonProductTable
-                    product={product}
-                    onEdit={handleEditClick}
-                    onDelete={() => {
-                      openDeleteModal(product);
-                    }}
-                    actionType="edit"
-                  />
-                  <ButtonProductTable
-                    product={product}
-                    onEdit={handleEditClick}
-                    onDelete={() => {
-                      openDeleteModal(product);
-                    }}
-                    actionType="delete"
-                  />
+                  {user?.role === "ROLE_ADMIN" && (
+                    <ButtonProductTable
+                      product={product}
+                      onEdit={handleEditClick}
+                      onDelete={() => {
+                        openDeleteModal(product);
+                      }}
+                      actionType="edit"
+                    />
+                  )}
+                  {user?.role === "ROLE_ADMIN" && (
+                    <ButtonProductTable
+                      product={product}
+                      onEdit={handleEditClick}
+                      onDelete={() => {
+                        openDeleteModal(product);
+                      }}
+                      actionType="delete"
+                    />
+                  )}
                 </td>
               </tr>
             ))}
