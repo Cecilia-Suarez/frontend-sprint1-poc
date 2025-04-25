@@ -168,7 +168,9 @@ const ProductsTable: React.FC = () => {
       {isEditModalOpen && editingProduct && (
         <ModalEditProduct
           product={editingProduct}
-          onSubmit={handleSaveEditedProduct}
+          onSubmit={(data: any) => {
+            handleSaveEditedProduct(data);
+          }}
           onClose={() => {
             setIsEditModalOpen(false);
           }}
