@@ -1,39 +1,46 @@
-import { useEffect, useState } from "react";
-import useProducts from "@/hooks/useProducts";
+import React, { useEffect, useState } from "react";
+import useProducts from "../../hooks/useProducts";
 import Loader from "../Loader";
 import ModalDeleteProduct from "../ProductsTable/ModalDeleteProduct";
-import ModalEditProduct from "../ProductsTable/ModalDeleteProduct";
-import Button from "../ProductsTable/Button";
+import ModalEditProduct from "../ProductsTable/ModalEditProduct";
+import ButtonProductTable from "../ProductsTable/ButtonProductTable";
 import ModalAddProduct from "../ProductsTable/ModalAddProduct";
 import SeekerProducts from "../SeekerProducts";
+import type { Product, ProductFormData } from "../../types/product";
 
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-}
-
-const ProductsTable = () => {
+const ProductsTable: React.FC = () => {
   const { data, isLoading, isError } = useProducts<Product[]>("products", "/products");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-
-  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
-  const [currentProduct, setCurrentProduct] = useState<Product | null>(null);
+  const [editingProduct, setEditingProduct] = useState<ProductFormData | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<ProductFormData[]>([]);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  useEffect(() => {
+    if (successMessage) {
+      const timeout = setTimeout(() => {
+        setSuccessMessage(null);
+      }, 2000);
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+  }, [successMessage]);
 
   useEffect(() => {
     if (data) setProducts(data);
   }, [data]);
 
-  const handleAddProduct = () => {
-    setIsModalOpen(true);
+  const handleAddProduct = (newProduct: Omit<Product, "id">) => {
+    const newId = products.length ? Math.max(...products.map((p) => p.id)) + 1 : 1;
+    const productWithId = { ...newProduct, id: newId };
+    setProducts((prevProducts) => [...prevProducts, productWithId]);
+    setIsModalOpen(false);
+    setSuccessMessage("Producto agregado con éxito!");
   };
 
   const handleEditClick = (product: Product) => {
@@ -41,25 +48,22 @@ const ProductsTable = () => {
     setIsEditModalOpen(true);
   };
 
-  const handleSave = (newProduct: Product) => {
-    setProducts((prevProducts) => [...prevProducts, newProduct]);
-    setIsModalOpen(false);
-    setSuccessMessage("Producto agregado con éxito!");
-    console.log("Producto guardado:", newProduct);
-  };
-
-  const handleSaveEdit = (updatedProduct: Product) => {
+  const handleSaveEditedProduct = (updateProduct: ProductFormData) => {
     setProducts((prevProducts) =>
-      prevProducts.map((product) => (product.id === updatedProduct.id ? updatedProduct : product)),
+      prevProducts.map((p) => (p.id === updateProduct.id ? updateProduct : p)),
     );
-    setIsEditModalOpen(false);
     setEditingProduct(null);
-    setSuccessMessage("Producto actualizado con éxito!");
-    console.log("Producto actualizado:", updatedProduct);
   };
 
-  const handleDeleteProduct = (id: number) => {
-    setProducts((prev) => prev.filter((product) => product.id !== id));
+  const handleDelete = (id: number) => {
+    setProducts((prevProducts) => prevProducts.filter((p) => p.id !== id));
+    setIsDeleteModalOpen(false);
+    setSuccessMessage("Producto eliminado con éxito!");
+  };
+
+  const openDeleteModal = (product: Product) => {
+    setSelectedProduct(product);
+    setIsDeleteModalOpen(true);
   };
 
   if (isLoading) return <Loader />;
@@ -83,7 +87,12 @@ const ProductsTable = () => {
             setSelectedCategory(category);
           }}
         />
-        <Button actionType="add" onAdd={handleAddProduct} />
+        <ButtonProductTable
+          actionType="add"
+          onAdd={() => {
+            setIsModalOpen(true);
+          }}
+        />
       </div>
       <div className="min-h-[480px] overflow-auto">
         <table className="min-w-full border-y border-gray-200 bg-gray-900">
@@ -110,21 +119,19 @@ const ProductsTable = () => {
                 </td>
                 <td className="table-td">{product.category}</td>
                 <td className="table-td space-x-2">
-                  <Button
+                  <ButtonProductTable
                     product={product}
                     onEdit={handleEditClick}
-                    onDelete={(product: Product) => {
-                      setCurrentProduct(product);
-                      setIsDeleteModalOpen(true);
+                    onDelete={() => {
+                      openDeleteModal(product);
                     }}
                     actionType="edit"
                   />
-                  <Button
+                  <ButtonProductTable
                     product={product}
                     onEdit={handleEditClick}
-                    onDelete={(product: Product) => {
-                      setCurrentProduct(product);
-                      setIsDeleteModalOpen(true);
+                    onDelete={() => {
+                      openDeleteModal(product);
                     }}
                     actionType="delete"
                   />
@@ -142,29 +149,29 @@ const ProductsTable = () => {
 
       {isModalOpen && (
         <ModalAddProduct
-          onSave={(newProduct) => {
-            handleSave(newProduct);
-          }}
           onClose={() => {
             setIsModalOpen(false);
           }}
+          onAddProduct={handleAddProduct}
         />
       )}
 
       {isEditModalOpen && editingProduct && (
         <ModalEditProduct
           product={editingProduct}
-          onSave={handleSaveEdit}
+          onSubmit={handleSaveEditedProduct}
           onClose={() => {
             setIsEditModalOpen(false);
           }}
         />
       )}
 
-      {isDeleteModalOpen && currentProduct && (
+      {isDeleteModalOpen && selectedProduct && (
         <ModalDeleteProduct
-          product={currentProduct}
-          onDelete={handleDeleteProduct}
+          product={selectedProduct}
+          onConfirm={() => {
+            handleDelete(selectedProduct.id);
+          }}
           onClose={() => {
             setIsDeleteModalOpen(false);
           }}
