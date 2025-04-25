@@ -1,10 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ProductTableSchema } from "../../validation/ProductTableSchema";
+import { ProductAddTableSchema } from "../../validation/ProductTableSchema";
 import { z } from "zod";
 
-const ProductFormSchema = ProductTableSchema;
+const ProductFormSchema = ProductAddTableSchema;
 type ProductFormData = z.infer<typeof ProductFormSchema>;
 
 interface ProductFormProps {
@@ -12,7 +12,7 @@ interface ProductFormProps {
   onSubmit: (data: ProductFormData) => void;
 }
 
-const ProductForm: React.FC<ProductFormProps> = ({ initialData, onSubmit }) => {
+const ProductAddForm: React.FC<ProductFormProps> = ({ initialData, onSubmit }) => {
   const {
     register,
     handleSubmit,
@@ -31,7 +31,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData, onSubmit }) => {
           placeholder="Ingresa título"
           className="w-full rounded-md border border-gray-300 px-4 py-2"
         />
-        {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
+        {errors.title && <p className="text-sm text-red-500">{errors.title.message}</p>}
       </div>
 
       <div>
@@ -41,7 +41,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData, onSubmit }) => {
           placeholder="Ingresar precio"
           className="w-full rounded-md border border-gray-300 px-4 py-2"
         />
-        {errors.price && <p className="text-red-500 text-sm">{errors.price.message}</p>}
+        {errors.price && <p className="text-sm text-red-500">{errors.price.message}</p>}
       </div>
 
       <div>
@@ -50,7 +50,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData, onSubmit }) => {
           placeholder="Ingresa descripción"
           className="w-full rounded-md border border-gray-300 px-4 py-2"
         />
-        {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
+        {errors.description && <p className="text-sm text-red-500">{errors.description.message}</p>}
       </div>
 
       <div>
@@ -60,7 +60,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData, onSubmit }) => {
           placeholder="Ingresa categoría"
           className="w-full rounded-md border border-gray-300 px-4 py-2"
         />
-        {errors.category && <p className="text-red-500 text-sm">{errors.category.message}</p>}
+        {errors.category && <p className="text-sm text-red-500">{errors.category.message}</p>}
       </div>
       <div className="flex justify-end gap-2">
         <button
@@ -74,4 +74,4 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData, onSubmit }) => {
   );
 };
 
-export default ProductForm;
+export default ProductAddForm;

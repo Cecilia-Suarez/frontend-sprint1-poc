@@ -1,9 +1,9 @@
 import React from "react";
 import ModalBase from "./ModalBase";
-import ProductForm from "./ProductForm";
+import ProductAddForm from "./ProductAddForm";
 import { z } from "zod";
-import { ProductTableSchema } from "../../validation/ProductTableSchema";
-type ProductFormData = z.infer<typeof ProductTableSchema>;
+import { ProductAddTableSchema } from "../../validation/ProductTableSchema";
+type ProductFormData = z.infer<typeof ProductAddTableSchema>;
 
 interface ModalAddProductProps {
   onClose: () => void;
@@ -24,7 +24,7 @@ const ModalAddProduct: React.FC<ModalAddProductProps> = ({ onClose, onAddProduct
     <div className="bg-opacity-50 fixed inset-0 flex items-center justify-center bg-black">
       <div className="w-96 rounded-lg border border-white bg-black p-6">
         <ModalBase title="Agregar producto" onClose={onClose}>
-          <ProductForm onSubmit={handleSubmit} />
+          <ProductAddForm onSubmit={handleSubmit} />
           <div className="flex justify-end gap-2 py-4">
             <button
               type="button"
